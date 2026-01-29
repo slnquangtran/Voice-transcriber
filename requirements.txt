@@ -11,3 +11,16 @@ soundfile
 openai-whisper
 requests
 tqdm
+spacy
+nltk
+sumy
+textblob
+python-docx
+reportlab
+transformers
+torch
+networkx
+wordcloud
+pydantic
+python-pptx
+beautifulsoup4

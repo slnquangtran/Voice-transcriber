@@ -23,12 +23,12 @@ try:
 except ImportError:
     whisper = None
 
-class HybridTranscriberApp(ctk.CTk):
-    def __init__(self):
-        super().__init__()
+class HybridTranscriberApp(ctk.CTkToplevel):
+    def __init__(self, master=None):
+        super().__init__(master)
 
         # --- Window Setup ---
-        self.title("Hybrid Voice Transcriber (Vosk + Whisper)")
+        self.title("NoteForge - Real-Time Transcription")
         self.geometry("1100x850")
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
@@ -387,5 +387,17 @@ class HybridTranscriberApp(ctk.CTk):
                 f.write(text)
 
 if __name__ == "__main__":
-    app = HybridTranscriberApp()
-    app.mainloop()
+    # Create a dummy root for standalone execution
+    root = ctk.CTk()
+    root.withdraw() # Hide the root window used for the mainloop
+    
+    app = HybridTranscriberApp(root)
+    
+    # Ensure closing the app closes the script
+    def on_close():
+        app.destroy()
+        root.destroy()
+        os._exit(0) # Force exit threads
+        
+    app.protocol("WM_DELETE_WINDOW", on_close)
+    root.mainloop()
